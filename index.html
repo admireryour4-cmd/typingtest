@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>TYPING328 — Tes Mengetik</title>
+  <title>TYPINGTEST328</title>
   <meta name="description" content="Tes kecepatan mengetik Indonesia dengan leaderboard Supabase.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +20,7 @@
 </head>
 <body>
 <main class="app">
-  <header><div class="brand"><i>⌨</i><div>TYPE<span>FLOW</span></div></div><div class="right"><div class="record">REKOR <b id="record">0 WPM</b></div><button id="authButton" class="login">Login</button><button id="logoutButton" class="logout" hidden title="Keluar">↪</button></div></header>
+  <header><div class="brand"><i>⌨</i><div>TYPINGTEST<span>328</span></div></div><div class="right"><div class="record">REKOR <b id="record">0 WPM</b></div><button id="authButton" class="login">Login</button><button id="logoutButton" class="logout" hidden title="Keluar">↪</button></div></header>
   <section class="titlebar"><div><div class="eyebrow">TES KECEPATAN MENGETIK</div><h1>Bahasa Indonesia</h1></div><div class="controls"><div class="times"><button data-time="15">15s</button><button data-time="30">30s</button><button class="on" data-time="60">60s</button><button data-time="120">120s</button></div><select id="language" class="lang"><option value="id">🇮🇩 Indonesia</option><option value="en">🇬🇧 English</option></select></div></section>
   <section class="card"><div class="meter"><div class="metric"><b id="time">60</b><small>DETIK</small></div><div class="metric"><b id="wpm">0</b><small>WPM</small></div><div class="metric"><b id="cpm">0</b><small>CPM</small></div><div class="metric"><b id="accuracy">100%</b><small>AKURASI</small></div><div class="metric"><b id="errors">0</b><small>KATA SALAH</small></div></div><div id="words" class="words"></div><input id="capture" autocomplete="off" autocapitalize="off" spellcheck="false"><button id="refreshButton" class="refreshBtn" type="button" title="Mulai ulang tes" aria-label="Mulai ulang tes">↻</button><div class="progress"><i id="progress"></i></div><div class="hint">Klik teks lalu mulai mengetik · Spasi untuk lanjut · Tab lalu Enter untuk tombol refresh</div></section>
   <section id="results" class="results"><div><small class="eyebrow">HASIL TES</small><div class="score"><span id="finalWpm">0</span> WPM</div><div id="resultMessage" class="message"></div></div><div class="save"><button id="retryButton" class="secondary">Coba Lagi</button></div></section>
