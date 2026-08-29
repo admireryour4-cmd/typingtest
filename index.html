@@ -7,7 +7,7 @@
   <meta name="description" content="Tes kecepatan mengetik Indonesia dengan leaderboard Supabase.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root{--bg:#071018;--panel:#0d1722;--panel2:#111d2a;--line:#263444;--text:#eef5fb;--muted:#8392a5;--blue:#2fc3ff;--green:#26dfa7;--red:#ff5264;--yellow:#ffe36b}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#0d2a3b 0,transparent 35%),var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;min-height:100vh}.app{width:min(1080px,calc(100% - 28px));margin:auto;padding:22px 0 40px}header{height:66px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:.08em}.brand i{display:grid;place-items:center;width:39px;height:39px;border-radius:10px;background:var(--blue);color:#031018;font-style:normal}.brand span{color:var(--blue)}.right{display:flex;align-items:center;gap:8px}.login,.profile,.logout{height:33px;border:1px solid var(--line);border-radius:8px;padding:0 12px;background:transparent;color:var(--text);cursor:pointer;font-weight:700}.login{color:var(--blue);border-color:#257ea2}.logout{width:35px;padding:0}.record{font-size:11px;color:var(--muted);margin-right:8px}.record b{color:var(--text);margin-left:5px}.titlebar{display:flex;align-items:end;justify-content:space-between;padding:34px 2px 22px}.eyebrow{font-size:9px;color:var(--blue);font-weight:900;letter-spacing:.18em}.titlebar h1{margin:9px 0 0;font-size:27px}.controls{display:flex;gap:10px}.times{display:flex;padding:4px;border:1px solid var(--line);border-radius:9px}.times button,.lang{height:34px;border:0;border-radius:6px;background:transparent;color:var(--muted);padding:0 12px;font-weight:800;cursor:pointer}.times button.on{background:#edf4fa;color:#08111a}.lang{border:1px solid var(--line);color:var(--text);background:var(--panel)}.card,.results,.leader{border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden}.meter{height:82px;display:grid;grid-template-columns:1.4fr repeat(4,1fr);border-bottom:1px solid var(--line)}.metric{display:flex;flex-direction:column;align-items:center;justify-content:center;border-left:1px solid var(--line)}.metric:first-child{border:0}.metric b{font-size:21px}.metric:first-child b{font-size:38px;color:var(--blue)}.metric small{margin-top:8px;color:var(--muted);font-size:6px;font-weight:800;letter-spacing:.14em}.words{position:relative;height:168px;overflow:hidden;padding:18px 52px 18px 30px;display:flex;align-content:flex-start;flex-wrap:wrap;gap:8px 16px;font:600 25px/1.65 Georgia,serif;scroll-behavior:smooth}.word{position:relative;color:#c1cad5;white-space:nowrap}.word.ok{color:var(--green)}.word.bad{color:var(--red);text-decoration:underline}.word.active{color:#fff;background:#123148;border:1px solid #2584ad;border-radius:6px;padding:0 4px}.char.good{color:var(--green)}.char.wrong{color:var(--red);text-decoration:underline}.caret{display:inline-block;width:2px;height:1.1em;vertical-align:-.12em;background:var(--yellow);animation:blink .8s step-end infinite}@keyframes blink{50%{opacity:0}}#capture{position:fixed;left:-9999px;opacity:0}.progress{height:4px;background:#152536}.progress i{display:block;height:100%;background:var(--blue);width:0}.hint{text-align:center;color:var(--muted);font-size:10px;padding:10px}.results{margin-top:18px;padding:22px;display:none;grid-template-columns:1fr auto;align-items:center;gap:20px}.results.show{display:grid}.score{font-size:42px;color:var(--blue);font-weight:900}.save{display:flex;gap:8px;align-items:center}.primary{height:38px;border:0;border-radius:8px;padding:0 15px;background:var(--blue);color:#021018;font-weight:900;cursor:pointer}.secondary{height:38px;border:1px solid var(--line);border-radius:8px;padding:0 15px;background:transparent;color:var(--text);cursor:pointer}.message{font-size:10px;color:var(--muted)}.leader{margin-top:18px;padding:22px}.leader h2{font-size:18px;margin:5px 0 18px}.rows{border:1px solid var(--line);border-radius:9px;overflow:hidden}.row{display:grid;grid-template-columns:40px 1fr 90px 80px 150px;gap:10px;padding:11px 14px;border-bottom:1px solid var(--line);align-items:center;font-size:11px}.row:last-child{border:0}.row strong{overflow:hidden;text-overflow:ellipsis}.row em{color:var(--blue);font-size:14px;font-style:normal;font-weight:900}.row span{color:var(--muted)}.empty{padding:28px;text-align:center;color:var(--muted);font-size:12px}.modal{position:fixed;inset:0;z-index:20;display:none;place-items:center;padding:20px;background:#02070ddd;backdrop-filter:blur(8px)}.modal.show{display:grid}.dialog{position:relative;width:min(420px,100%);padding:34px;border:1px solid var(--line);border-radius:17px;background:var(--panel);text-align:center}.close{position:absolute;right:12px;top:10px;border:0;background:none;color:var(--muted);font-size:25px;cursor:pointer}.dialog h2{margin:5px 0 8px}.dialog p{color:var(--muted);font-size:12px;line-height:1.5}.tabs{display:grid;grid-template-columns:1fr 1fr;padding:4px;margin:18px 0 10px;border:1px solid var(--line);border-radius:9px}.tabs button{height:34px;border:0;border-radius:6px;background:transparent;color:var(--muted);font-weight:800;cursor:pointer}.tabs button.on{background:var(--blue);color:#031018}.dialog input{width:100%;height:44px;margin:5px 0;border:1px solid var(--line);border-radius:8px;padding:0 12px;background:var(--bg);color:var(--text);outline:0}.dialog input:focus{border-color:var(--blue)}.dialog .primary{width:100%;margin-top:8px}.notice{display:block;margin-top:10px;color:var(--blue);font-size:11px;line-height:1.45}@media(max-width:720px){.app{width:min(100% - 18px,1080px)}.record{display:none}.titlebar{align-items:flex-start;gap:15px;flex-direction:column}.controls{width:100%;justify-content:space-between}.times button{padding:0 9px}.meter{grid-template-columns:1.2fr repeat(4,1fr)}.metric b{font-size:15px}.metric:first-child b{font-size:28px}.words{height:145px;padding:15px 40px 15px 16px;font-size:21px;gap:6px 12px}.results{grid-template-columns:1fr}.row{grid-template-columns:28px 1fr 72px 55px}.row span:last-child{display:none}.profile{max-width:95px;overflow:hidden;text-overflow:ellipsis}.leader{padding:16px}}
   </style>
@@ -17,12 +17,138 @@
     .notice{min-height:16px}.forgot{display:block;margin:8px 0 0 auto;border:0;background:none;color:var(--blue);font-size:11px;cursor:pointer}.dialog button:disabled,.dialog input:disabled{opacity:.55;cursor:wait}
     @media(max-width:720px){.words{font-size:21px}}
   </style>
+  <style>
+    /* TYPEFLOW — PROFESSIONAL UI */
+    :root{
+      --bg:#07111d;
+      --panel:#0d1928;
+      --panel2:#111f31;
+      --line:#24364b;
+      --text:#f1f6fb;
+      --muted:#8b9bb0;
+      --blue:#37bff2;
+      --blue2:#288ee8;
+      --green:#32d6a1;
+      --red:#ff6575;
+      --yellow:#ffd166;
+      --shadow:0 18px 45px rgba(0,0,0,.24);
+    }
+
+    body{
+      background:
+        radial-gradient(circle at 50% -10%,rgba(40,142,232,.18),transparent 34%),
+        radial-gradient(circle at 95% 25%,rgba(55,191,242,.06),transparent 25%),
+        var(--bg);
+      font-family:Inter,Arial,sans-serif;
+      letter-spacing:-.01em;
+    }
+
+    .app{width:min(1180px,calc(100% - 40px));padding:18px 0 52px}
+    header{height:72px;border-bottom-color:rgba(82,112,143,.35)}
+    .brand{gap:12px;font-size:14px;letter-spacing:.12em}
+    .brand i{
+      width:40px;height:40px;border-radius:12px;
+      background:linear-gradient(145deg,#46cff7,#269ee5);
+      box-shadow:0 8px 22px rgba(47,195,255,.24);
+    }
+    .brand span{color:#45c8f6}
+    .right{gap:10px}
+    .record{padding-right:12px;border-right:1px solid var(--line);letter-spacing:.04em}
+    .record b{color:var(--blue);font-size:12px}
+    .login,.profile,.logout{
+      height:38px;border-radius:10px;background:rgba(17,31,49,.78);
+      transition:transform .16s ease,border-color .16s ease,background .16s ease;
+    }
+    .login:hover,.profile:hover,.logout:hover{transform:translateY(-1px);border-color:#3e789a;background:#132338}
+    .login{padding:0 16px}
+    .logout{width:40px}
+
+    .titlebar{padding:38px 2px 24px}
+    .titlebar h1{font-size:30px;letter-spacing:-.035em;margin-top:8px}
+    .eyebrow{font-size:10px;letter-spacing:.2em}
+    .controls{gap:12px}
+    .times{padding:4px;border-radius:11px;background:rgba(13,25,40,.75);box-shadow:inset 0 0 0 1px rgba(255,255,255,.015)}
+    .times button,.lang{height:38px;border-radius:8px;transition:.18s ease}
+    .times button:hover{color:var(--text)}
+    .times button.on{background:linear-gradient(135deg,#eff8fd,#dcecf6);color:#081521;box-shadow:0 5px 15px rgba(0,0,0,.22)}
+    .lang{padding:0 14px;background:var(--panel);border-color:var(--line);outline:0}
+    .lang:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(55,191,242,.12)}
+
+    .card,.results,.leader{
+      border-color:rgba(70,96,124,.55);
+      border-radius:18px;
+      background:linear-gradient(180deg,rgba(15,29,45,.98),rgba(11,23,36,.98));
+      box-shadow:var(--shadow);
+    }
+    .card:before{
+      content:"";position:absolute;inset:0 0 auto;height:1px;
+      background:linear-gradient(90deg,transparent,rgba(76,203,246,.38),transparent);
+      pointer-events:none;
+    }
+    .meter{height:88px;background:rgba(8,18,30,.28);border-bottom-color:var(--line)}
+    .metric{border-left-color:var(--line)}
+    .metric b{font-size:22px;letter-spacing:-.035em}
+    .metric:first-child b{font-size:39px;text-shadow:0 0 24px rgba(47,195,255,.18)}
+    .metric small{font-size:7px;letter-spacing:.18em}
+
+    .words{
+      height:184px;padding:24px 62px 20px 32px;
+      font-size:26px;line-height:1.76;gap:7px 16px;
+      background:radial-gradient(circle at 50% 30%,rgba(40,142,232,.055),transparent 48%);
+    }
+    .word{color:#b9c5d2}
+    .word.active{color:#fff;text-shadow:0 0 16px rgba(255,255,255,.08)}
+    .caret{width:2px;border-radius:2px;box-shadow:0 0 10px rgba(255,209,102,.5)}
+    .progress{height:5px;background:#122338}
+    .progress i{background:linear-gradient(90deg,var(--blue2),#44d4f5);box-shadow:0 0 12px rgba(55,191,242,.45);transition:width .08s linear}
+    .hint{padding:11px 12px 12px;font-size:10px;background:rgba(5,14,24,.28)}
+    .refreshBtn{
+      right:16px;bottom:35px;width:38px;height:38px;border-radius:10px;
+      background:#122238;box-shadow:0 8px 20px rgba(0,0,0,.18);transition:.18s ease;
+    }
+    .refreshBtn:hover,.refreshBtn:focus{transform:rotate(-24deg);background:#172b43;outline:0}
+
+    .results{margin-top:22px;padding:25px 26px}
+    .score{font-size:45px;letter-spacing:-.055em}
+    .primary,.secondary{height:40px;border-radius:10px;transition:.18s ease}
+    .primary{background:linear-gradient(135deg,#43cef7,#2ba2e7);box-shadow:0 8px 20px rgba(47,195,255,.2)}
+    .primary:hover,.secondary:hover{transform:translateY(-1px)}
+
+    .leader{margin-top:22px;padding:25px 26px 17px}
+    .leader h2{font-size:20px;letter-spacing:-.025em;margin:6px 0 19px}
+    .rows{border-radius:12px;border-color:var(--line);background:rgba(6,16,27,.18)}
+    .row{min-height:48px;padding:12px 16px;border-bottom-color:var(--line);transition:background .15s ease}
+    .row:hover{background:rgba(55,191,242,.045)}
+    .row b{color:#dce8f3;font-variant-numeric:tabular-nums}
+    .row strong{font-weight:700}
+    .row em{font-size:14px}
+
+    .modal{background:rgba(2,7,13,.78);backdrop-filter:blur(12px)}
+    .dialog{padding:36px;border-radius:20px;background:linear-gradient(180deg,#111f31,#0c1827);box-shadow:0 30px 80px rgba(0,0,0,.45)}
+    .dialog h2{font-size:24px;letter-spacing:-.035em}
+    .dialog input{height:46px;border-radius:10px;background:#08131f;transition:.18s ease}
+    .dialog input:focus{box-shadow:0 0 0 3px rgba(55,191,242,.12)}
+    .tabs{border-radius:11px;background:#091522}
+    .tabs button{border-radius:8px}
+    .tabs button.on{background:linear-gradient(135deg,#43cef7,#2ba2e7)}
+
+    @media(max-width:720px){
+      .app{width:min(100% - 20px,1180px);padding-top:8px}
+      header{height:62px}.brand i{width:36px;height:36px}
+      .titlebar{padding:28px 2px 18px}.titlebar h1{font-size:25px}
+      .controls{gap:8px}.times button{padding:0 10px}.lang{max-width:145px}
+      .card,.results,.leader{border-radius:15px}
+      .meter{height:76px}.metric small{font-size:6px}.metric b{font-size:15px}.metric:first-child b{font-size:29px}
+      .words{height:154px;padding:17px 47px 16px 17px;font-size:21px;line-height:1.7;gap:6px 12px}
+      .leader{padding:19px 15px 13px}.row{padding:11px 10px}
+    }
+  </style>
 </head>
 <body>
 <main class="app">
-  <header><div class="brand"><i>⌨</i><div>TYPE<span>FLOW</span></div></div><div class="right"><div class="record">REKOR <b id="record">0 WPM</b></div><button id="authButton" class="login">Login</button><button id="logoutButton" class="logout" hidden title="Keluar">↪</button></div></header>
-  <section class="titlebar"><div><div class="eyebrow">TES KECEPATAN MENGETIK</div><h1>Bahasa Indonesia</h1></div><div class="controls"><div class="times"><button data-time="15">15s</button><button data-time="30">30s</button><button class="on" data-time="60">60s</button><button data-time="120">120s</button></div><select id="language" class="lang"><option value="id">🇮🇩 Indonesia</option><option value="en">🇬🇧 English</option></select></div></section>
-  <section class="card"><div class="meter"><div class="metric"><b id="time">60</b><small>DETIK</small></div><div class="metric"><b id="wpm">0</b><small>WPM</small></div><div class="metric"><b id="cpm">0</b><small>CPM</small></div><div class="metric"><b id="accuracy">100%</b><small>AKURASI</small></div><div class="metric"><b id="errors">0</b><small>KATA SALAH</small></div></div><div id="words" class="words"></div><input id="capture" autocomplete="off" autocapitalize="off" spellcheck="false"><button id="refreshButton" class="refreshBtn" type="button" title="Mulai ulang tes" aria-label="Mulai ulang tes">↻</button><div class="progress"><i id="progress"></i></div><div class="hint">Klik teks lalu mulai mengetik · Spasi untuk lanjut · Tab lalu Enter untuk tombol refresh</div></section>
+  <header><div class="brand"><i>&#9000;</i><div>TYPE<span>FLOW</span></div></div><div class="right"><div class="record">REKOR <b id="record">0 WPM</b></div><button id="authButton" class="login">Login</button><button id="logoutButton" class="logout" hidden title="Keluar">&#8618;</button></div></header>
+  <section class="titlebar"><div><div class="eyebrow">TES KECEPATAN MENGETIK</div><h1>Bahasa Indonesia</h1></div><div class="controls"><div class="times"><button data-time="15">15s</button><button data-time="30">30s</button><button class="on" data-time="60">60s</button><button data-time="120">120s</button></div><select id="language" class="lang"><option value="id">Indonesia</option><option value="en">English</option></select></div></section>
+  <section class="card"><div class="meter"><div class="metric"><b id="time">60</b><small>DETIK</small></div><div class="metric"><b id="wpm">0</b><small>WPM</small></div><div class="metric"><b id="cpm">0</b><small>CPM</small></div><div class="metric"><b id="accuracy">100%</b><small>AKURASI</small></div><div class="metric"><b id="errors">0</b><small>KATA SALAH</small></div></div><div id="words" class="words"></div><input id="capture" autocomplete="off" autocapitalize="off" spellcheck="false"><button id="refreshButton" class="refreshBtn" type="button" title="Mulai ulang tes" aria-label="Mulai ulang tes">&#8635;</button><div class="progress"><i id="progress"></i></div><div class="hint">Klik teks lalu mulai mengetik &middot; Spasi untuk lanjut &middot; Tab lalu Enter untuk tombol refresh</div></section>
   <section id="results" class="results"><div><small class="eyebrow">HASIL TES</small><div class="score"><span id="finalWpm">0</span> WPM</div><div id="resultMessage" class="message"></div></div><div class="save"><button id="retryButton" class="secondary">Coba Lagi</button></div></section>
   <section class="leader"><div class="eyebrow">PAPAN PERINGKAT</div><h2>Skor Semua Pemain</h2><div id="leaderboard" class="rows"><div class="empty">Memuat leaderboard…</div></div></section>
 </main>
