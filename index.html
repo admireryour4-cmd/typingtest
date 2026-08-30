@@ -130,6 +130,29 @@
     .dialog h2{font-size:24px;letter-spacing:-.035em}
     .dialog input{height:46px;border-radius:10px;background:#08131f;transition:.18s ease}
     .dialog input:focus{box-shadow:0 0 0 3px rgba(55,191,242,.12)}
+
+    /* Login / daftar — tampilan premium, seluruh teks tetap sama */
+    #authModal{background:rgba(2,8,15,.82);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+    #authModal .dialog{width:min(430px,100%);padding:112px 38px 36px;border:1px solid rgba(91,139,178,.32);border-radius:26px;background:linear-gradient(155deg,rgba(19,37,57,.98),rgba(8,21,34,.99));box-shadow:0 32px 90px rgba(0,0,0,.58),0 0 0 1px rgba(255,255,255,.025) inset;overflow:hidden}
+    #authModal .dialog:before{content:'';position:absolute;left:50%;top:-100px;width:300px;height:210px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle,rgba(47,195,255,.2),transparent 67%);pointer-events:none}
+    #authModal .dialog:after{content:'⌨';position:absolute;z-index:1;left:50%;top:35px;display:grid;place-items:center;width:54px;height:54px;transform:translateX(-50%);border:1px solid rgba(104,207,246,.32);border-radius:17px;background:linear-gradient(145deg,#153c57,#102a40);color:#63d4ff;font-size:23px;box-shadow:0 12px 30px rgba(0,0,0,.3),0 0 24px rgba(47,195,255,.08)}
+    #authModal .close{z-index:2;right:17px;top:14px;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;color:#7f93a9;font-size:21px;line-height:1;transition:.18s ease}
+    #authModal .close:hover{background:rgba(255,255,255,.07);color:#fff;transform:rotate(90deg)}
+    #authModal h2{position:relative;margin:0 0 9px;font-size:25px;font-weight:800;letter-spacing:-.045em;color:#f5f9fd}
+    #authModal p{position:relative;max-width:330px;margin:0 auto;color:#8fa1b6;font-size:11px;line-height:1.65}
+    #authModal .tabs{position:relative;margin:23px 0 15px;padding:4px;border:1px solid rgba(74,107,139,.52);border-radius:13px;background:rgba(5,16,27,.72);box-shadow:0 1px 0 rgba(255,255,255,.025) inset}
+    #authModal .tabs button{height:38px;border-radius:9px;color:#8294aa;font-size:11px;transition:color .2s ease,background .2s ease,transform .15s ease}
+    #authModal .tabs button:hover{color:#d9e9f5}
+    #authModal .tabs button.on{background:linear-gradient(135deg,#48cef5,#269fe7);color:#03121c;box-shadow:0 7px 20px rgba(40,158,231,.22);transform:none}
+    #authModal input{height:50px;margin:6px 0;padding:0 16px;border:1px solid rgba(69,100,131,.58);border-radius:13px;background:rgba(5,16,27,.78);color:#f3f8fc;font-size:12px;transition:border-color .18s ease,box-shadow .18s ease,background .18s ease}
+    #authModal input::placeholder{color:#6e7f93}
+    #authModal input:hover{border-color:#3e607d;background:rgba(7,20,33,.92)}
+    #authModal input:focus{border-color:#35baf0;background:#071522;box-shadow:0 0 0 4px rgba(55,191,242,.1),0 10px 24px rgba(0,0,0,.12)}
+    #authModal .primary{height:50px;margin-top:12px;border-radius:13px;background:linear-gradient(135deg,#45cdf5,#269ce4);box-shadow:0 12px 28px rgba(40,158,231,.2);font-size:12px;letter-spacing:.01em;transition:transform .16s ease,filter .16s ease,box-shadow .16s ease}
+    #authModal .primary:hover{filter:brightness(1.08);transform:translateY(-2px);box-shadow:0 16px 32px rgba(40,158,231,.28)}
+    #authModal .primary:active{transform:translateY(0) scale(.985)}
+    #authModal .notice{min-height:17px;margin:11px 0 0}
+    @media(max-width:520px){#authModal{padding:14px}#authModal .dialog{padding:104px 22px 28px;border-radius:22px}#authModal .dialog:after{top:31px;width:48px;height:48px;border-radius:15px}#authModal h2{font-size:23px}}
     .tabs{border-radius:11px;background:#091522}
     .tabs button{border-radius:8px}
     .tabs button.on{background:linear-gradient(135deg,#43cef7,#2ba2e7)}
