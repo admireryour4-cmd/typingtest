@@ -344,6 +344,10 @@
     @keyframes scoreDownIn{from{opacity:0;transform:translate(-50%,calc(-50% - 16px)) scale(1.08)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
     @media(max-width:720px){.results.new-record{grid-template-columns:1fr auto}.new-record-banner{position:static;grid-column:1;grid-row:2;justify-content:flex-start;max-width:none;min-height:auto;padding:4px 0;text-align:left;white-space:normal;font-size:28px;animation:newRecordMobileIn .52s cubic-bezier(.16,1,.3,1) both}.results.score-down .new-record-banner{animation:scoreDownMobileIn .56s cubic-bezier(.16,1,.3,1) both}.results.new-record .result-gif-wrap{grid-row:1/3;grid-column:2}.results.new-record .save{grid-column:1/-1}@keyframes newRecordMobileIn{from{opacity:0;transform:translateY(8px) scale(.94)}to{opacity:1;transform:none}}@keyframes scoreDownMobileIn{from{opacity:0;transform:translateY(-10px) scale(1.04)}to{opacity:1;transform:none}}}
     .ranking-avatar,.chat-avatar{cursor:zoom-in;transition:transform .18s ease,filter .18s ease}
+    .duration-score{display:flex;align-items:center;justify-content:center;gap:5px}
+    .score-trend{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;font-size:13px;font-weight:1000;line-height:1}
+    .score-trend.up{color:#50e6aa;background:rgba(80,230,170,.12);text-shadow:0 0 8px rgba(80,230,170,.55)}
+    .score-trend.down{color:#ff6278;background:rgba(255,98,120,.12);text-shadow:0 0 8px rgba(255,98,120,.55)}
     .ranking-avatar:hover,.chat-avatar:hover{transform:scale(1.07);filter:brightness(1.1)}
     .profile-lightbox{position:fixed;inset:0;z-index:10020;display:grid;place-items:center;padding:28px;background:rgba(2,6,12,.84);backdrop-filter:blur(14px);opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s ease;cursor:zoom-out}
     .profile-lightbox.show{opacity:1;visibility:visible}
@@ -495,6 +499,61 @@ function syncLeaderboardActivityStatus(){if(!presenceReady)return;leaderboardAct
 leaderboardActivityObserver=new MutationObserver(syncLeaderboardActivityStatus);leaderboardActivityObserver.observe($('#leaderboards'),{childList:true,subtree:true});setTimeout(refreshLeaderboardPresence,1800);setInterval(refreshLeaderboardPresence,30*60*1000);
 async function saveScoreAutomatically(){if(!finished||scoreSaving||scoreHandled)return;if(!user||user.is_anonymous){$('#resultMessage').textContent='Mode tamu — login diperlukan agar skor masuk leaderboard.';return}if(!profile){$('#resultMessage').textContent='Isi nama pemain agar skor dapat disimpan otomatis.';$('#profileModal').classList.add('show');return}const activeRun=runId;scoreSaving=true;$('#resultMessage').textContent='Menyimpan skor terbaru secara otomatis…';const s=stats(),{data,error}=await submitBestScore(s);if(activeRun!==runId)return;scoreSaving=false;if(error){$('#resultMessage').textContent=error.message?.includes('permission denied')?'Database perlu diperbarui. Jalankan TYPEFLOW-ADMIN-SETUP.sql terbaru.':'Gagal menyimpan otomatis: '+error.message;return}const storedWpm=Number(data?.current_wpm),confirmed=Number.isFinite(storedWpm)&&storedWpm===s.wpm;if(!confirmed){$('#resultMessage').textContent='Skor belum diganti oleh database. Jalankan TYPEFLOW-ADMIN-SETUP.sql terbaru sekali lagi.';showNewRecordBanner(false);return}scoreHandled=true;const isNewRecord=data.direction==='up',isScoreDrop=data.direction==='down';showNewRecordBanner(isScoreDrop?'down':isNewRecord?'up':false);$('#resultMessage').textContent=isNewRecord?`${s.wpm} WPM naik dari skor sebelumnya ${data.previous_wpm} WPM.`:isScoreDrop?`${s.wpm} WPM lebih rendah dari ${data.previous_wpm} WPM. Posisi leaderboard ikut turun.`:data.direction==='first'?`Skor pertama ${s.wpm} WPM otomatis tersimpan sebagai ${profile.name}.`:`Skor tetap ${s.wpm} WPM dan sudah diperbarui.`;if(isNewRecord)requestAnimationFrame(launchBestScoreConfetti);leaderboardSignature='';await loadLeaderboard();setTimeout(()=>{leaderboardSignature='';void loadLeaderboard()},800)}
 function scoreAge(value){const hours=Math.max(0,Math.floor((Date.now()-new Date(value).getTime())/3600000));if(hours<1)return'now';if(hours<24)return hours+'h';const days=Math.floor(hours/24);return days<30?days+'d':Math.floor(days/30)+'mo'}function typingTitle(wpm){const score=Number(wpm)||0;if(score>=181&&score<=199)return'Super Sakti';if(score>=161&&score<=180)return'Sakti';if(score>=146&&score<=160)return'Pro Ngobok';if(score>=130&&score<=145)return'Rajin Coli';if(score>=91&&score<=129)return'Tukang Cangkul';if(score>=51&&score<=90)return'Penggali Kubur';if(score>=1&&score<=50)return'Disabilitas (CCD)';return'—'}let leaderboardRequest=0,leaderboardSignature='';async function loadLeaderboard(){const requestId=++leaderboardRequest,requestedDuration=duration,language=$('#language').value,languageLabel=$('#language').selectedOptions[0]?.textContent||language,box=$('#leaderboards'),sameBoard=box.querySelector(`[data-board-duration="${requestedDuration}"][data-board-language="${language}"]`);if(!sameBoard)box.innerHTML='<div class="duration-empty">Memuat leaderboard&hellip;</div>';let{data,error}=await supabase.from('scores').select('id,wpm,cpm,accuracy,duration,lang,created_at,profiles(name,avatar_url)').eq('duration',requestedDuration).eq('lang',language).order('wpm',{ascending:false}).order('cpm',{ascending:false}).order('accuracy',{ascending:false}).order('created_at',{ascending:true}).limit(200);if(error){const fallback=await supabase.from('scores').select('id,wpm,cpm,accuracy,duration,lang,created_at,profiles(name)').eq('duration',requestedDuration).eq('lang',language).order('wpm',{ascending:false}).order('cpm',{ascending:false}).order('accuracy',{ascending:false}).order('created_at',{ascending:true}).limit(200);data=fallback.data;error=fallback.error}if(requestId!==leaderboardRequest)return;if(error){if(!sameBoard)box.innerHTML='<div class="duration-empty">Leaderboard gagal dimuat. Periksa koneksi dan pengaturan tabel scores/profiles.</div>';return}const names=new Set(),best=(data||[]).filter(r=>{const key=(r.profiles?.name||'Pemain').trim().toLocaleLowerCase('id-ID');if(names.has(key))return false;names.add(key);return true}).slice(0,50),signature=JSON.stringify([requestedDuration,language,...best.map(r=>[r.id,r.wpm,r.cpm,r.accuracy,r.created_at,r.profiles?.name,r.profiles?.avatar_url,scoreAge(r.created_at)])]);if(signature===leaderboardSignature&&sameBoard)return;const rows=best.length?best.map((r,i)=>{const name=(r.profiles?.name||'Pemain').replace(/[<>]/g,''),rank=i+1,title=typingTitle(r.wpm),avatar=r.profiles?.avatar_url||defaultAvatar(name),rankStyle=rank===1?'gold':rank===2?'silver':rank===3?'bronze':rank<=10?'wood':'clown',accessory=rank<=10?'crown':'clown-hat';return`<div class="duration-row"><span class="duration-rank">${rank}</span><div class="rank-avatar ${rankStyle}"><img class="ranking-avatar" src="${avatar}" alt="Foto ${name}" onerror="this.src='${defaultAvatar(name)}'"><i class="rank-accessory ${accessory}" aria-hidden="true"></i></div><div class="duration-player"><strong>${name}</strong></div><span class="ranking-cpm">${r.cpm||0}</span><span class="duration-score">${r.wpm}</span><span class="ranking-age">${scoreAge(r.created_at)}</span><span class="ranking-title">${title}</span></div>`}).join(''):`<div class="duration-empty">Belum ada skor untuk ${requestedDuration} detik.</div>`;box.innerHTML=`<section class="duration-board active" data-board-duration="${requestedDuration}" data-board-language="${language}"><div class="duration-head"><strong>${requestedDuration}s Ranking</strong><span>${languageLabel} &nbsp; &middot; &nbsp; Normal</span></div><div class="ranking-columns"><span>#</span><span>Profil</span><span>Pemain</span><span>CPM</span><span>WPM</span><span>Waktu</span><span>Title</span></div><div class="duration-rows">${rows}</div></section>`;leaderboardSignature=signature}
+async function loadLeaderboardWithTrends(){
+  const requestId=++leaderboardRequest;
+  const requestedDuration=duration;
+  const language=$('#language').value;
+  const languageLabel=$('#language').selectedOptions[0]?.textContent||language;
+  const box=$('#leaderboards');
+  const sameBoard=box.querySelector(`[data-board-duration="${requestedDuration}"][data-board-language="${language}"]`);
+  if(!sameBoard)box.innerHTML='<div class="duration-empty">Memuat leaderboard&hellip;</div>';
+  let{data,error}=await supabase.from('scores')
+    .select('id,wpm,cpm,accuracy,duration,lang,previous_wpm,score_direction,created_at,profiles(name,avatar_url)')
+    .eq('duration',requestedDuration).eq('lang',language)
+    .order('wpm',{ascending:false}).order('cpm',{ascending:false})
+    .order('accuracy',{ascending:false}).order('created_at',{ascending:true}).limit(200);
+  if(error&&error.message?.includes('avatar_url')){
+    const fallback=await supabase.from('scores')
+      .select('id,wpm,cpm,accuracy,duration,lang,previous_wpm,score_direction,created_at,profiles(name)')
+      .eq('duration',requestedDuration).eq('lang',language)
+      .order('wpm',{ascending:false}).order('cpm',{ascending:false})
+      .order('accuracy',{ascending:false}).order('created_at',{ascending:true}).limit(200);
+    data=fallback.data;error=fallback.error;
+  }
+  if(requestId!==leaderboardRequest)return;
+  if(error){
+    if(!sameBoard)box.innerHTML='<div class="duration-empty">Leaderboard gagal dimuat. Jalankan TYPEFLOW-ADMIN-SETUP.sql terbaru.</div>';
+    return;
+  }
+  const names=new Set();
+  const latest=(data||[]).filter(row=>{
+    const key=(row.profiles?.name||'Pemain').trim().toLocaleLowerCase('id-ID');
+    if(names.has(key))return false;
+    names.add(key);return true;
+  }).slice(0,50);
+  const signature=JSON.stringify([requestedDuration,language,...latest.map(row=>[
+    row.id,row.wpm,row.cpm,row.accuracy,row.previous_wpm,row.score_direction,
+    row.created_at,row.profiles?.name,row.profiles?.avatar_url,scoreAge(row.created_at)
+  ])]);
+  if(signature===leaderboardSignature&&sameBoard)return;
+  const rows=latest.length?latest.map((row,index)=>{
+    const safeName=escapeHtml(row.profiles?.name||'Pemain');
+    const rank=index+1;
+    const title=typingTitle(row.wpm);
+    const avatar=escapeHtml(row.profiles?.avatar_url||defaultAvatar(row.profiles?.name||'Pemain'));
+    const rankStyle=rank===1?'gold':rank===2?'silver':rank===3?'bronze':rank<=10?'wood':'clown';
+    const accessory=rank<=10?'crown':'clown-hat';
+    const previous=Number(row.previous_wpm)||0;
+    const trend=row.score_direction==='up'
+      ?`<i class="score-trend up" title="Naik dari ${previous} WPM" aria-label="Skor naik">↑</i>`
+      :row.score_direction==='down'
+        ?`<i class="score-trend down" title="Turun dari ${previous} WPM" aria-label="Skor turun">↓</i>`:'';
+    return`<div class="duration-row"><span class="duration-rank">${rank}</span><div class="rank-avatar ${rankStyle}"><img class="ranking-avatar" src="${avatar}" alt="Foto ${safeName}"><i class="rank-accessory ${accessory}" aria-hidden="true"></i></div><div class="duration-player"><strong>${safeName}</strong></div><span class="ranking-cpm">${row.cpm||0}</span><span class="duration-score"><b>${row.wpm}</b>${trend}</span><span class="ranking-age">${scoreAge(row.created_at)}</span><span class="ranking-title">${title}</span></div>`;
+  }).join(''):`<div class="duration-empty">Belum ada skor untuk ${requestedDuration} detik.</div>`;
+  box.innerHTML=`<section class="duration-board active" data-board-duration="${requestedDuration}" data-board-language="${language}"><div class="duration-head"><strong>${requestedDuration}s Ranking</strong><span>${languageLabel} &nbsp; &middot; &nbsp; Normal</span></div><div class="ranking-columns"><span>#</span><span>Profil</span><span>Pemain</span><span>CPM</span><span>WPM</span><span>Waktu</span><span>Title</span></div><div class="duration-rows">${rows}</div></section>`;
+  leaderboardSignature=signature;
+}
+loadLeaderboard=loadLeaderboardWithTrends;
 let chatRows=[],chatSending=false,lastChatSentAt=0,chatReplyTarget=null,chatSelectedFile=null,chatFilePreviewUrl='';
 const CHAT_FILE_TYPES=new Map([['image/jpeg',{ext:'jpg',kind:'image',max:8*1024*1024}],['image/png',{ext:'png',kind:'image',max:8*1024*1024}],['image/gif',{ext:'gif',kind:'image',max:12*1024*1024}],['video/mp4',{ext:'mp4',kind:'video',max:30*1024*1024}]]);
 function chatFileRule(file){const ext=String(file?.name||'').split('.').pop().toLowerCase(),byExt={jpg:{ext:'jpg',kind:'image',max:8*1024*1024,mime:'image/jpeg'},jpeg:{ext:'jpg',kind:'image',max:8*1024*1024,mime:'image/jpeg'},png:{ext:'png',kind:'image',max:8*1024*1024,mime:'image/png'},gif:{ext:'gif',kind:'image',max:12*1024*1024,mime:'image/gif'},mp4:{ext:'mp4',kind:'video',max:30*1024*1024,mime:'video/mp4'}};const mimeRule=CHAT_FILE_TYPES.get(file?.type);return mimeRule?{...mimeRule,mime:file.type}:byExt[ext]||null}
